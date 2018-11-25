@@ -6,4 +6,4 @@ mkdir -p ../v_env
 cd ../v_env
 vagrant init
 cp ../Vagrantfile ./Vagrantfile
-cp ../bootfile.sh ./bootfile.sh
+cp ../bootstrap.sh ./bootstrap.sh
