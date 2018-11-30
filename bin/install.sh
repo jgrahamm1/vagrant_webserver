@@ -2,7 +2,7 @@
 
 ### Builds the system and makes it ready to be used
 
-echo "Creating '/v_env' vagrant directory...
+echo "Creating '/v_env' vagrant directory..."
 mkdir -p ../v_env
 cd ../v_env
 

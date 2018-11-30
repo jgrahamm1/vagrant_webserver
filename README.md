@@ -10,11 +10,20 @@ https://www.virtualbox.org/wiki/Downloads
 Note: Vagrant will download an Ubuntu 14.04 image upon running the install script
 https://app.vagrantup.com/ubuntu/boxes/trusty64
 
+Developed on macOS 10.14, tools such as FreeBSD sed may vary from their linux equivalents. 
+
 ## Usage
 
 ### 1) Install the environment with Vagrant
 
 ```sh
+# Before installing, please note the default IP address is 192.168.50.5
+# This can be modified to suit your current environment with the changeip.sh script
+# /bin/changeip.sh <old_ip> <new_ip>
+./changeip.sh 192.168.50.5 192.168.60.6
+
+
+# If no IP changes are required, the install script should be run
 # /bin/install.sh
 ./install.sh
 ```
@@ -70,7 +79,7 @@ One method of rendering is to simply browse to it on the host machine.
 The `render.sh` script can be used to print the results to the command line.
 
 ```sh
-./render
+./render.sh
 ```
 
 ![render image](img/render.png?raw=true "Render")
