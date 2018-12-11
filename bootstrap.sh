@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+
+### Getting IP ###
+new_ip=$(ip address show eth1 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//')
+echo $new_ip > ip_addr
+
 ### Setting up webserver ###
 # Install apache
 apt-get update
@@ -11,13 +16,14 @@ fi
 
 # Generate SSL Certificates
 cd /home/vagrant
-openssl genrsa -out 192.168.50.5.key 2048
-openssl req -new -x509 -key 192.168.50.5.key -out 192.168.50.5.cert -days 3650 -subj /CN=192.168.50.5
+openssl genrsa -out $new_ip.key 2048
+openssl req -new -x509 -key $new_ip.key -out $new_ip.cert -days 3650 -subj /CN=$new_ip
 
 # Replace apache and index files
 mkdir -p /var/www/html
 cp /home/vagrant/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 cp /home/vagrant/index.php /var/www/html/index.php
+sed -i -e "s/192.168.50.5/$new_ip/g" /etc/apache2/sites-enabled/000-default.conf
 
 # Enable SSL and restart webserver
 sudo a2enmod ssl
@@ -65,9 +71,9 @@ sudo cat /home/www-data/.ssh/id_rsa.pub | cat >> /home/admin/.ssh/authorized_key
 
 cd /home/www-data
 
-sudo -u www-data echo -e "Host 192.168.50.5\n\tStrictHostKeyChecking no\n" >> /home/www-data/.ssh/config
+sudo -u www-data echo -e "Host $new_ip\n\tStrictHostKeyChecking no\n" >> /home/www-data/.ssh/config
 
-sudo -u www-data -H git clone admin@192.168.50.5:/home/admin/admin.git
+sudo -u www-data -H git clone admin@$new_ip:/home/admin/admin.git
 
 
 

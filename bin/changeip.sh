@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+### DEPRECATED -- No longer in use with new Vagrnat provider changes
+
+
 ### IP Change 1=old_IP 2=new_IP
 if [ \("$1" != "" -a "$2" != ""\) ]; then
 	sed -i '.bak' "s/$1/$2/g" ../bootstrap.sh

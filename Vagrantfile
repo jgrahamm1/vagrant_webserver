@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
 	config.vm.provision "file", source: "../index.php", destination: "/home/vagrant/index.php"
 
 	config.vm.provision :shell, path: "bootstrap.sh"
-	config.vm.network "private_network", ip: "192.168.50.5"
+	config.vm.network "public_network"
 
 
   # Disable automatic box update checking. If you disable this, then
